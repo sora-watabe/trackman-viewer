@@ -1,9 +1,7 @@
 # trackman-viewer
-トラックマンで取得したデータから試合の結果を可視化します。
-
-# Trackman Data Viewer
-
 このウェブアプリケーションは、Trackmanから出力されたCSVデータを読み込み、試合結果や各選手の成績を視覚的に表示・分析するためのツールです。
+
+https://github.com/sora-watabe/trackman-viewer/blob/main/trakman_app_demo.mp4
 
 ## 主な機能
 
