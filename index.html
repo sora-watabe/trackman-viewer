@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackman Data Viewer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Trackman Data Viewer</h1>
+        <nav>
+            <a href="index.html" class="custom-button">Home</a>
+            <a href="pitch_data.html" class="custom-button">投球データ</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="upload-section">
+                <label for="csvFileInput" class="custom-file-upload">
+                    CSVファイルを選択
+                </label>
+                <input type="file" id="csvFileInput" accept=".csv">
+            </div>
+            <div id="team-stats-navigation" class="navigation-section">
+                <!-- Team buttons will be inserted here by script.js -->
+            </div>
+            <div id="game-view">
+                <div id="scoreboard"></div>
+                <div id="inning-scores"></div>
+                <div id="at-bat-results"></div>
+            </div>
+            <div id="output"></div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Modal Structure -->
+    <div id="pitch-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="modal-header">
+                <!-- Pitcher vs. Batter info will be injected here -->
+            </div>
+            <div id="modal-body-container" class="modal-split-layout">
+                <div id="at-bat-pitch-list" class="pitch-list-container"></div>
+                <div id="at-bat-pitch-chart-area">
+                    <div id="at-bat-pitch-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Data Analysis - Trackman Data Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <header>
+        <h1>Pitch Data Analysis</h1>
+        <nav>
+            <a href="index.html" class="custom-button">Home</a>
+            <a href="pitch_data.html" class="custom-button">投球データ</a>
+            <a href="team_stats.html" class="custom-button">チーム成績</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>投手分析ダッシュボード</h2>
+                <p class="dashboard-description">投手ごとの詳細な投球データを分析します。投手を選択し、各種グラフで球速、回転数、変化量などを確認できます。</p>
+            </div>
+            
+            <div class="controls-section">
+                <div class="pitcher-select-container">
+                    <label for="pitcher-select">投手を選択:</label>
+                    <select id="pitcher-select" class="custom-select"></select>
+                </div>
+                <div id="graph-toggle-buttons">
+                    <button class="custom-button active" data-graph="speed">球速</button>
+                    <button class="custom-button" data-graph="spin">回転数</button>
+                    <button class="custom-button" data-graph="axis">回転軸</button>
+                </div>
+            </div>
+            
+            <div class="pitch-analysis-container">
+                <div id="pitch-list-container" class="card">
+                    <!-- Pitch list will be dynamically inserted here -->
+                </div>
+                <div id="pitch-graphs-container">
+                    <div id="time-series-chart" class="chart-card"></div>
+                    <div class="pitch-scatter-container">
+                        <div id="pitch-location-chart" class="chart-card"></div>
+                        <div id="movement-chart" class="chart-card"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pitch-stats-summary card">
+                <h3>投球データサマリー</h3>
+                <div id="pitch-stats-content">
+                    <!-- Pitch stats summary will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© 2025 Trackman Data Viewer</p>
+        </div>
+    </footer>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="pitch_data.js"></script>
+</body>
+</html>

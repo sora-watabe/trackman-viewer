@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Stats - Trackman Data Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <header>
+        <h1 id="team-name-header">Team Stats</h1>
+        <nav>
+            <a href="index.html" class="custom-button">Home</a>
+            <a href="pitch_data.html" class="custom-button">投球データ</a>
+            <a href="team_stats.html" class="custom-button">チーム成績</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="navigation-section">
+                    <button id="backButton" class="custom-button">戻る</button>
+                </div>
+                <p class="dashboard-description">チームの打撃成績と投手成績を表示します。各選手の詳細なデータを確認できます。</p>
+            </div>
+            
+            <div class="stats-tabs">
+                <button class="tab-button active" data-tab="batter">打撃成績</button>
+                <button class="tab-button" data-tab="pitcher">投手成績</button>
+            </div>
+            
+            <div id="batter-stats-view" class="stats-panel card active">
+                <h2>打撃成績</h2>
+                <div class="stats-summary">
+                    <div id="team-batting-summary" class="summary-card">
+                        <!-- Team batting summary will be inserted here -->
+                    </div>
+                    <div id="batting-chart" class="chart-card">
+                        <!-- Batting chart will be inserted here -->
+                    </div>
+                </div>
+                <div class="stats-table-container">
+                    <!-- Batter stats will be dynamically inserted here -->
+                </div>
+            </div>
+            
+            <div id="pitcher-stats-view" class="stats-panel card">
+                <h2>投手成績</h2>
+                <div class="stats-summary">
+                    <div id="team-pitching-summary" class="summary-card">
+                        <!-- Team pitching summary will be inserted here -->
+                    </div>
+                    <div id="pitching-chart" class="chart-card">
+                        <!-- Pitching chart will be inserted here -->
+                    </div>
+                </div>
+                <div class="stats-table-container">
+                    <!-- Pitcher stats will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© 2025 Trackman Data Viewer</p>
+        </div>
+    </footer>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="team_stats.js"></script>
+</body>
+</html>
