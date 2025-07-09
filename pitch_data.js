@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const pitcherData = trackmanData.filter(row => row.Pitcher === currentPitcher);
         renderPitchList(pitcherData);
         updateCharts(pitcherData);
+        renderPitchStatsSummary(pitcherData);
     }
 
     function updateCharts(pitcherData, highlightedPitchIndex = -1) {
@@ -52,21 +53,107 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function renderPitchList(data) {
-        pitchListContainer.innerHTML = '<h3>投球一覧</h3>';
-        const list = document.createElement('ul');
-        list.className = 'pitch-list';
+        // Find the list, or create it if it doesn't exist
+        let list = pitchListContainer.querySelector('.pitch-list');
+        if (!list) {
+            // If the list doesn't exist, create the title and the list
+            pitchListContainer.innerHTML = ''; // Clear once
+            const title = document.createElement('h3');
+            title.textContent = '投球一覧';
+            pitchListContainer.appendChild(title);
+            
+            list = document.createElement('ul');
+            list.className = 'pitch-list';
+            pitchListContainer.appendChild(list);
+        } else {
+            // If the list exists, just clear its contents
+            list.innerHTML = '';
+        }
+
+        // Populate the list with new items
         data.forEach((pitch, index) => {
             const item = document.createElement('li');
             item.textContent = `#${index + 1}: ${pitch.TaggedPitchType} - ${pitch.RelSpeed.toFixed(1)} km/h (${pitch.PitchCall})`;
             item.dataset.index = index;
             item.addEventListener('click', () => {
-                document.querySelectorAll('.pitch-list li').forEach(li => li.classList.remove('selected'));
+                // When an item is clicked, update selection and charts
+                const currentSelected = list.querySelector('.selected');
+                if (currentSelected) {
+                    currentSelected.classList.remove('selected');
+                }
                 item.classList.add('selected');
                 updateCharts(data, index);
             });
             list.appendChild(item);
         });
-        pitchListContainer.appendChild(list);
+    }
+
+    function renderPitchStatsSummary(data) {
+        const statsContent = document.getElementById('pitch-stats-content');
+        if (!statsContent) return;
+    
+        const pitchesByType = data.reduce((acc, pitch) => {
+            const type = pitch.TaggedPitchType;
+            if (!acc[type]) {
+                acc[type] = [];
+            }
+            acc[type].push(pitch);
+            return acc;
+        }, {});
+    
+        const stats = Object.entries(pitchesByType).map(([type, pitches]) => {
+            const count = pitches.length;
+            const avgSpeed = pitches.reduce((sum, p) => sum + p.RelSpeed, 0) / count;
+            const avgSpin = pitches.reduce((sum, p) => sum + p.SpinRate, 0) / count;
+            const avgVertBreak = pitches.reduce((sum, p) => sum + p.InducedVertBreak, 0) / count;
+            const avgHorzBreak = pitches.reduce((sum, p) => sum + p.HorzBreak, 0) / count;
+    
+            return {
+                type,
+                count,
+                avgSpeed,
+                avgSpin,
+                avgVertBreak,
+                avgHorzBreak
+            };
+        });
+    
+        let tableHtml = `
+            <div class="stats-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>球種</th>
+                            <th>投球数</th>
+                            <th>平均球速 (km/h)</th>
+                            <th>平均回転数 (rpm)</th>
+                            <th>平均縦変化 (cm)</th>
+                            <th>平均横変化 (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+    
+        stats.sort((a, b) => b.count - a.count).forEach(stat => {
+            tableHtml += `
+                <tr>
+                    <td>${stat.type}</td>
+                    <td>${stat.count}</td>
+                    <td>${stat.avgSpeed.toFixed(1)}</td>
+                    <td>${stat.avgSpin.toFixed(0)}</td>
+                    <td>${stat.avgVertBreak.toFixed(1)}</td>
+                    <td>${stat.avgHorzBreak.toFixed(1)}</td>
+                </tr>
+            `;
+        });
+    
+        tableHtml += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+    
+        statsContent.innerHTML = tableHtml;
     }
 
     const plotlyLayout = {
@@ -204,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         };
-        Plotly.newPlot(timeSeriesChart, traces, layout);
+        Plotly.react(timeSeriesChart, traces, layout);
     }
 
     function drawPitchLocationChart(data, highlightedIndex) {
@@ -357,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             ]
         };
-        Plotly.newPlot(pitchLocationChart, traces, layout);
+        Plotly.react(pitchLocationChart, traces, layout);
     }
 
     function drawMovementChart(data, highlightedIndex) {
@@ -508,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             ]
         };
-        Plotly.newPlot(movementChart, traces, layout);
+        Plotly.react(movementChart, traces, layout);
     }
 
     if (pitchers.length > 0) {

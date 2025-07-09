@@ -490,7 +490,7 @@ h2, h3 {
 }
 
 #pitch-list-container {
-    flex: 1;
+    flex: 1 1 300px;
     background-color: var(--bg-secondary);
     padding: 1rem;
     border-radius: 6px;
@@ -500,7 +500,7 @@ h2, h3 {
 }
 
 #pitch-graphs-container {
-    flex: 3;
+    flex: 7
 }
 
 .pitch-list {
@@ -792,4 +792,33 @@ footer {
     color: var(--text-secondary);
     border-top: 1px solid var(--border-color);
     margin-top: auto;
+}
+
+#pitch-stats-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+#pitch-stats-content th,
+#pitch-stats-content td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#pitch-stats-content th {
+    background-color: rgba(58, 134, 255, 0.1);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+#pitch-stats-content td {
+    text-align: right;
+}
+
+#pitch-stats-content td:first-child {
+    text-align: left;
+    font-weight: 500;
 }
