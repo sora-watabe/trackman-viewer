@@ -1,6 +1,6 @@
 # trackman-viewer
 このウェブアプリケーションは、Trackmanから出力されたCSVデータを読み込み、試合結果や各選手の成績を視覚的に表示・分析するためのツールです。
-https://github.com/sora-watabe/trackman-viewer
+https://sora-watabe.github.io/trackman-viewer/
 
 以下の画像をクリックするとでも動画に飛びます
 [![デモ動画](https://github.com/sora-watabe/trackman-viewer/blob/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202025-07-03%20160954.png)](https://www.youtube.com/watch?v=8L-R1txNQtI)
